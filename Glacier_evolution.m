@@ -31,7 +31,7 @@ figure (1)
 rho_i = 917; %Density of Ice
 gamma = 0.01;   %variation of ablation with altitude, y^-1
 s = 0.4;        %slope, m/m
-g = 9.81;       %gravity, m/s^2
+g = 9.81;%*(pi*10^7)^2;       %gravity, m/yr^2
 A = 2.1*10^-16; %ratio between glacier stress and strain
 
 %% Arrays
@@ -45,7 +45,7 @@ zb =zmax:-dz:0; %Elevation Array m
 
 %% Climate variation
 ELA0 = (2/3)*zmax;
-omega = 0.0006; %1/years
+omega = 0.01; %1/years
 ELA = @(t) 15.*sin(2*pi*omega*t) + ELA0;
 
 b0 = gamma*(zb-ELA0);  % ablation of glacier surface, m/year
@@ -58,8 +58,8 @@ G = G0.*ones(size(x)); %Initial Glacial Array
 h = (zmax-s*x)+G; %m
 
 %Time
-dt = min(1/52);
-tmax = 2*pi/omega;
+dt = 1/52; %yrs
+tmax = 1.5*pi/omega;
 t = 0:dt:tmax;
 imax = length(t);
 
